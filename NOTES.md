@@ -28,3 +28,14 @@ Solution provided by docker buildx
 This error might be caused due to apt repo which is amd64 repository
 
 client from libmariadbclient18 libmariadbclient-dev libcap2-bin (setcap)
+
+---
+
+Building docker image command
+
+The docker image is built using buildx on arm32v7 arch for now as base testing.
+
+```bash
+docker buildx build --platform linux/arm/v7 -t armourshield/postal:latest-arm -f Dock
+erfile.arm . --push
+```
