@@ -1,4 +1,11 @@
-THIS IS A DIRECT FORK OF POSTALSERVER/POSTAL REPOSITORY FOR MODIFIED FOR INSTALLATION IN ARM ENVIRONMENTS.
+This is a direct fork of postalserver/postal repository modified for installation in ARM environments.
+
+**NOTE:** This is still in testing phase for ARM please install at your own risk.
+
+Images Used:
+- MariaDB - [yobasystem/alpine-mariadb](https://hub.docker.com/r/yobasystems/alpine-mariadb)
+- RabbitMQ - [rabbitmq](https://hub.docker.com/_/rabbitmq/)
+- PostalServer - [armourshield/postal:latest-arm](https://hub.docker.com/repository/docker/armourshield/postal)
 
 ----
 
