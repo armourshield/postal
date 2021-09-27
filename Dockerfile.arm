@@ -1,11 +1,11 @@
-FROM arm32v7/ruby:2.6 AS base
+FROM arm32v7/ruby:2.6-buster AS base
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
   software-properties-common \
-  && apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 \
-  && add-apt-repository 'deb http://security.debian.org/debian-security stretch/updates main' \
+  && apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x9CC75DDB0058BB8C \
+  && add-apt-repository 'deb http://ftp.debian.org/debian buster main ' \
   && (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -) \
   && (echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list) \
   && (curl -sL https://deb.nodesource.com/setup_12.x | bash -) \
@@ -18,9 +18,8 @@ RUN apt-get update && \
   netcat \
   curl \
   nano \
-  nodejs
-
-RUN apt-get install -y libmariadbclient18 libmariadbclient-dev libcap2-bin
+  nodejs \
+  mariadb-client
 
 RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/ruby
 
@@ -35,7 +34,7 @@ RUN mkdir -p /opt/postal/app /opt/postal/config
 WORKDIR /opt/postal/app
 
 # Install bundler
-RUN gem install -n /usr/local/bin bundler -v 2.1.4 --no-doc
+RUN gem install -n /opt/postal/app/bin bundler -v 2.1.4 --no-doc
 
 # Install the latest and active gem dependencies and re-run
 # the appropriate commands to handle installs.

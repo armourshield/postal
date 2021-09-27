@@ -7,6 +7,8 @@ Images Used:
 - RabbitMQ - [rabbitmq](https://hub.docker.com/_/rabbitmq/)
 - PostalServer - [armourshield/postal:latest-arm](https://hub.docker.com/repository/docker/armourshield/postal)
 
+**Follow instructions in NOTES.md for installation**
+
 ----
 
 <img src="https://share.adam.ac/21/logo-g3hWemROTemCYbWlmL.svg" width="250" />

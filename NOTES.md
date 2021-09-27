@@ -70,6 +70,78 @@ Building docker image command
 The docker image is built using buildx on arm32v7 arch for now as base testing.
 
 ```bash
-docker buildx build --platform linux/arm/v7 -t armourshield/postal:latest-arm -f Dock
-erfile.arm . --push
+docker buildx build --platform linux/arm/v7 -t armourshield/postal:latest-arm -f Dockerfile.arm . --push
 ```
+
+---
+
+## UPDATE: 27th September 2021
+Currently, this image is working in armourshield/postal:latest-arm in RaspberryPi OS (32-bit)
+
+```bash
+postal status
+
+      Name                     Command               State   Ports
+------------------------------------------------------------------
+postal_cron_1       /docker-entrypoint.sh post ...   Up           
+postal_requeuer_1   /docker-entrypoint.sh post ...   Up           
+postal_smtp_1       /docker-entrypoint.sh post ...   Up           
+postal_web_1        /docker-entrypoint.sh post ...   Up           
+postal_worker_1     /docker-entrypoint.sh post ...   Up
+```
+
+---
+
+## Instruction for running in arm32v7
+
+### Prerequisites
+
+**NOTE:** Change credentials for security
+
+Running MySQL with the following command
+
+```bash
+docker run -d --name postal-mariadb -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql --restart always -e MYSQL_ROOT_PASSWORD=root yobasystems/alpine-mariadb:10.4.17
+```
+
+```bash
+docker run -d --name postal-rabbitmq -p 5672:5672 --restart always -e RABBITMQ_DEFAULT_USER=postal -e RABBITMQ_DEFAULT_PASS=root -e RABBITMQ_DEFAULT_VHOST=postal rabbitmq:3.8.10-management-alpine
+```
+
+### Installing Postal using new ARM32v7 image
+
+You can follow most of the instructions from the official page (Installation Page - Postal)[https://docs.postalserver.io/install/installation]
+
+The major change will be changing the image name in docker-compose.yaml.
+
+1. Initialize files for postal
+```bash
+postal bootstrap postal.yourdomain.com
+```
+
+2. Change image for postalhq to armourshield/postal:latest-arm in /opt/postal/install/docker-compose.yaml
+
+3. Setup all the credentials for DB, MQTT in /opt/postal/config/postal.yaml
+
+4. Initialize DB
+```bash
+postal initialize
+```
+
+5. Create User
+```bash
+postal make-user
+```
+
+6. Run Postal
+```bash
+postal start
+```
+
+7. You can follow the other reverse-proxy instruction from the official documentation.
+
+---
+
+Please let me know if you find any issues. I am yet to test the complete functionality. This is currently working in my setup. If you need a build for arm64. I will push it to the same docker repository.
+
+Many thanks for your patience
