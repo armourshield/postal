@@ -7,7 +7,7 @@ Images Used:
 - RabbitMQ - [rabbitmq](https://hub.docker.com/_/rabbitmq/)
 - PostalServer - [armourshield/postal:latest-arm](https://hub.docker.com/repository/docker/armourshield/postal)
 
-**Follow instructions in NOTES.md for installation**
+**Follow instructions in NOTES.md for installation [ARM Installation instruction](https://github.com/armourshield/postal/blob/main/NOTES.md)**
 
 ----
 
